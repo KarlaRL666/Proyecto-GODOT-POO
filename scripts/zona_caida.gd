@@ -15,6 +15,9 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("jugador"):
-		var gm = get_node_or_null("/root/GameManager")
-		if gm:
-			gm.registrar_dano_jugador("Caída fuera del nivel")
+		if body.has_method("caer_al_vacio"):
+			body.caer_al_vacio()
+		else:
+			var gm = get_node_or_null("/root/GameManager")
+			if gm:
+				gm.registrar_dano_jugador("Caída fuera del nivel")

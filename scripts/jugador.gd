@@ -202,6 +202,10 @@ func recibir_dano(cantidad: int = 1, fuente: String = "Obstáculo") -> void:
 
 ## Comportamiento: Caída mortal fuera de las plataformas
 func caer_al_vacio() -> void:
+	if es_invulnerable or not control_habilitado:
+		return
+
+	velocity = Vector3.ZERO
 	var gm = get_node_or_null("/root/GameManager")
 	if gm:
 		gm.registrar_dano_jugador("Caída al vacío")

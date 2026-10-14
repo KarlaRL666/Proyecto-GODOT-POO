@@ -60,9 +60,11 @@ func _on_puntaje_actualizado(nuevo_puntaje: int, _incremento: int) -> void:
 	actualizar_texto_puntaje(nuevo_puntaje)
 
 	# Animación de pulso visual al ganar puntos
-	var tween = create_tween()
-	tween.tween_property(label_puntaje, "scale", Vector3(1.25, 1.25, 1.0), 0.1)
-	tween.tween_property(label_puntaje, "scale", Vector3.ONE, 0.1)
+	if label_puntaje:
+		label_puntaje.pivot_offset = label_puntaje.size / 2.0
+		var tween = create_tween()
+		tween.tween_property(label_puntaje, "scale", Vector2(1.2, 1.2), 0.1)
+		tween.tween_property(label_puntaje, "scale", Vector2.ONE, 0.1)
 
 
 func actualizar_texto_puntaje(puntos: int) -> void:
@@ -74,9 +76,11 @@ func _on_vidas_actualizadas(vidas_restantes: int, _cambio: int) -> void:
 	actualizar_texto_vidas(vidas_restantes)
 
 	# Animación de sacudida visual al perder o ganar vidas
-	var tween = create_tween()
-	tween.tween_property(label_vidas, "scale", Vector3(1.3, 1.3, 1.0), 0.12)
-	tween.tween_property(label_vidas, "scale", Vector3.ONE, 0.12)
+	if label_vidas:
+		label_vidas.pivot_offset = label_vidas.size / 2.0
+		var tween = create_tween()
+		tween.tween_property(label_vidas, "scale", Vector2(1.25, 1.25), 0.12)
+		tween.tween_property(label_vidas, "scale", Vector2.ONE, 0.12)
 
 
 func actualizar_texto_vidas(vidas_restantes: int) -> void:
