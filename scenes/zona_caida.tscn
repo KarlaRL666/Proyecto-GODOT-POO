@@ -7,7 +7,8 @@ size = Vector3(200, 2, 200)
 
 [node name="ZonaCaida" type="Area3D"]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 3
+monitoring = true
 script = ExtResource("1_caida")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

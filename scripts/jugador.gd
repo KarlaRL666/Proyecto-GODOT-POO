@@ -117,6 +117,11 @@ func set_modo_fps(valor: bool) -> void:
 			spring_arm.rotation.y = 0.0
 		if mesh:
 			mesh.rotation.y = 0.0
+			mesh.visible = false
+	else:
+		# Al volver a tercera persona, restablecer la visibilidad de la malla
+		if mesh:
+			mesh.visible = true
 
 
 # ------------------------------------------------------------------------------
@@ -225,13 +230,16 @@ func _procesar_invulnerabilidad(delta: float) -> void:
 	if es_invulnerable:
 		tiempo_invulnerabilidad -= delta
 		if mesh:
-			# Efecto estroboscópico de parpadeo cada 0.1 segundos
-			mesh.visible = fmod(tiempo_invulnerabilidad, 0.2) > 0.1
+			if not modo_fps:
+				# Efecto estroboscópico de parpadeo solo en tercera persona
+				mesh.visible = fmod(tiempo_invulnerabilidad, 0.2) > 0.1
+			else:
+				mesh.visible = false
 
 		if tiempo_invulnerabilidad <= 0.0:
 			es_invulnerable = false
 			if mesh:
-				mesh.visible = true
+				mesh.visible = not modo_fps
 
 
 ## Evento: Reaparecer en la posición del último Checkpoint activo
@@ -240,9 +248,13 @@ func _on_jugador_reaparecer(posicion_checkpoint: Vector3) -> void:
 	global_position = posicion_checkpoint + Vector3(0.0, 1.2, 0.0)
 	velocity = Vector3.ZERO
 	activar_invulnerabilidad(2.0)
+	if mesh:
+		mesh.visible = not modo_fps
 
 
 ## Evento: El juego ha finalizado (Victoria o Derrota)
 func _on_juego_finalizado(_arg1 = null, _arg2 = null) -> void:
 	control_habilitado = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if mesh:
+		mesh.visible = true

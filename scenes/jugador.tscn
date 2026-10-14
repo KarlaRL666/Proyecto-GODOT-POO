@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/jugador.gd" id="1_jugador"]
 [ext_resource type="Script" path="res://scripts/controlador_camara.gd" id="2_controlador"]
@@ -16,10 +16,17 @@ material = SubResource("StandardMaterial3D_cuerpo")
 radius = 0.5
 height = 2.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_visor"]
+albedo_color = Color(0.08, 0.12, 0.2, 1)
+metallic = 0.8
+roughness = 0.2
+
 [sub_resource type="BoxMesh" id="BoxMesh_visor"]
-size = Vector3(0.5, 0.2, 0.3)
+material = SubResource("StandardMaterial3D_visor")
+size = Vector3(0.5, 0.2, 0.25)
 
 [node name="Jugador" type="CharacterBody3D" groups=["jugador"]]
+collision_layer = 3
 collision_mask = 7
 script = ExtResource("1_jugador")
 
@@ -32,13 +39,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_jugador")
 
 [node name="Visor" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.42)
 mesh = SubResource("BoxMesh_visor")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+near = 0.05
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.7, 0)

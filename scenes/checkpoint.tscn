@@ -34,7 +34,8 @@ height = 1.0
 
 [node name="Checkpoint" type="Area3D"]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 3
+monitoring = true
 script = ExtResource("1_cp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
