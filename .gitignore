@@ -1,0 +1,13 @@
+# Carpeta de importación y caché de Godot 4
+.godot/
+
+# Archivos de exportación temporales
+*.translation
+*.import
+
+# Configuración local del editor y Mono/.NET (si aplica)
+.mono/
+.vscode/
+Export/
+build/
+*.tmp
